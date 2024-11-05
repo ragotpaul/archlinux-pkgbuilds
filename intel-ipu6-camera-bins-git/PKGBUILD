@@ -1,0 +1,35 @@
+# Maintainer: Paul Ragot <ragot.paul12@gmail.com>
+pkgname=intel-ipu6-camera-bins-git
+_pkgname=ipu6-camera-bins
+pkgver=r84.98ca6f2
+pkgrel=1
+pkgdesc="Intel IPU6 camera firmware and libraries (Alder Lake)"
+arch=('x86_64')
+url="https://github.com/intel/$_pkgname"
+license=('LicenseRef-Intel')
+groups=('ipu6-cameras')
+depends=('intel-ipu6-drivers-dkms-git' 'expat' 'gcc-libs' 'glibc' 'zlib')
+makedepends=('git')
+provides=('intel-ipu6-camera-bin')
+conflicts=('intel-ipu6-camera-bin')
+source=("$_pkgname::git+$url.git")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd "$srcdir/$_pkgname"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+    cd "$srcdir/$_pkgname"
+
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+    _libdir="$pkgdir/usr/lib"
+    install -dm755 "$_libdir"
+    cp -rT lib "$_libdir"
+
+    _includedir="$pkgdir/usr/include"
+    install -dm755 "$_includedir"
+    cp -rT include "$_includedir"
+}
