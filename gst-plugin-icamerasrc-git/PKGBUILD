@@ -1,7 +1,7 @@
 # Maintainer: Paul Ragot <ragot.paul12@gmail.com>
 pkgname=gst-plugin-icamerasrc-git
 _pkgname=icamerasrc
-pkgver=r81.154fecf
+pkgver=r83.b7c78fa
 pkgrel=1
 pkgdesc="Multimedia graph framework - icamerasrc plugin"
 arch=('x86_64')
