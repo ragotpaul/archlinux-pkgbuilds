@@ -29,7 +29,7 @@ if [ -z "$(mount | grep $CHROOTS)" ]; then
 fi
 
 sudo rm -rfv $CHROOTS/*
-mkarchroot $CHROOTS/root base-devel
+mkarchroot -C /etc/pacman.conf -M /etc/makepkg.conf $CHROOTS/root base-devel
 arch-nspawn $CHROOTS/root pacman -Syyu --noconfirm
 
 pkgs_deps() {
