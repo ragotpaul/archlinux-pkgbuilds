@@ -2,7 +2,7 @@
 pkgname=v4l2-relayd-git
 _pkgname=v4l2-relayd
 pkgver=0.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Streaming relay for v4l2loopback using GStreamer"
 arch=('x86_64')
 url="https://git.launchpad.net/$_pkgname"
@@ -39,6 +39,7 @@ package() {
     sed -i 's/FORMAT=YUY2/FORMAT=NV12/g' "$_configfile"
 
     _servicefile="$pkgdir/usr/lib/systemd/system/$_pkgname.service"
-    sed -i 's/DeviceAllow=char-video4linux//g' "$_servicefile"
+    sed -i 's/! videoconvert ! v4l2sink/! videoconvert ! video\/x-raw,format=YUY2 ! v4l2sink/g' "$_servicefile"
     sed -i 's/CapabilityBoundingSet=//g' "$_servicefile"
+    sed -i 's/DeviceAllow=char-video4linux//g' "$_servicefile"
 }
